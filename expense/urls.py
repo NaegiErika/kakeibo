@@ -10,4 +10,5 @@ urlpatterns = [
     path('expense_update_done/', views.expense_update_done, name='expense_update_done'),
     path('expense_delete/<int:pk>/', views.ExpenseDeleteView.as_view(), name='expense_delete'),
     path('expense_delete_done/', views.expense_delete_done, name='expense_delete_done'),
+    path('expense_analyse/', views.expense_analyse, name='expense_analyse'),
     ]
