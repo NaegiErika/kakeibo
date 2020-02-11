@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Wishing
 
-# Register your models here.
+class WishingAdmin(admin.ModelAdmin):
+    list_display=('wishingdate', 'wishingmoney','wishingmemo')
+
+admin.site.register(Wishing)

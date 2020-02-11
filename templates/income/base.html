@@ -5,13 +5,46 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
  <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/>
- <title>Income</title>
+ <title>収入</title>
 <body>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'homepage' %}">HOME</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'expense:expense_list' %}">支出一覧表示</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'expense:expense_create' %}">新規支出作成</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'expense:expense_analyse' %}">支出合計金額推移</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'income:income_list' %}">収入一覧表示</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'income:income_create' %}">新規収入作成</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'income:income_analyse' %}">収入合計金額推移</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'wishing:wishing_list' %}">ほしいものリスト</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'trophy:trophy_list' %}">トロフィー</a>
+        </li>
+      </ol>
  {% block content %}
  {% endblock %}
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
  <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
+<!--jQueryでテーブルの検索、ページング、ソート、件数切り替え機能を実装-->
  <script>
     jQuery(function($){
       $.extend( $.fn.dataTable.defaults, {
@@ -27,5 +60,86 @@
           }).columns.adjust().draw();
           });
  </script>
+
+ <!-- 折れ線グラフの設定-->
+<script>
+  var ctx = document.getElementById("LineChart").getContext('2d');
+  var DiskChart = new Chart(ctx, {
+  type: 'line',
+    data: {
+      labels:[
+        {% for item in income_x_label %}
+             '{{item}}',
+        {% endfor %}],
+
+      datasets: [
+      {% for category_name in incomecategory_list %}
+       {
+        label: "{{category_name}}",
+        fill: false,
+        {% for category, color in border_color %}
+               {% if category == category_name %}
+                  borderColor : "rgba({{color}})",
+               {% endif %}
+           {% endfor %}
+
+           {% for category, color in background_color %}
+               {% if category == category_name %}
+                  backgroundColor : "rgba({{color}})",
+               {% endif %}
+           {% endfor %}
+
+        data: [
+        {% for time_label in income_x_label %}
+
+           {% for date, category, total in income_matrix_list %}
+              {% if category == category_name %}
+                 {% if date == time_label %}
+                   {{total}},
+                 {% endif %}
+              {% endif %}
+           {% endfor %}
+        {% endfor %}
+        ],
+       },
+     {% endfor %}
+    ]
+  },
+
+       options: {
+        responsive: true,
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: '時間'
+            },
+            ticks: {
+                maxRotation:0,
+                minRotation:0
+              },
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: '合計金額（円）'
+              },
+            ticks:{
+              min: 0,
+              }
+             }],
+           },
+          title: {
+            display: true,
+            pocision: "top",
+            fontSize: 30,
+            fontColor: "black",
+            text: "月毎の合計金額推移"
+          },
+     }
+
+
+});
+</script>
 </body>
 </html>

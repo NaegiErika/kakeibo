@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'income',
     'wishing',
     'bootstrapform',
+    'trophy',
 ]
 
 MIDDLEWARE = [

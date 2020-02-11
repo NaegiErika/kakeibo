@@ -1,0 +1,17 @@
+{% extends 'wishing/base.html' %}
+{% load bootstrap %}
+{% block content %}
+ <form method="post">
+   <div class="card mb-3">
+     <div class="card-header">
+       <i class="fa fa-server"></i><h3>新しいほしいもの登録画面</h3></div>
+     <div class="card-body">{{ form|bootstrap }}</div>
+     </div>
+     <div class="row">
+       <div class="col-12">
+         <button class="btn btn-primary">保存</button>
+       </div>
+     </div>
+   {% csrf_token %}
+ </form>
+{% endblock %}
