@@ -23,8 +23,11 @@ SECRET_KEY = 'n%)pj64+poz)z%v3zha9k8ma)0uhk!_a9k9gda7for%d)%30+$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+# Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
+
 ALLOWED_HOSTS = []
 
 
