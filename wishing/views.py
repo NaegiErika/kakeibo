@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.http import JsonResponse
 from django.views.generic import CreateView, ListView, DeleteView
 from .models import Wishing
 from django.urls import reverse_lazy
@@ -26,3 +26,7 @@ class WishingDeleteView(DeleteView):
 
 def wishing_delete_done(request):
     return render(request, 'wishing/wishing_delete_done.html')
+
+def wishingdone(request):
+    #自動的に支出新規データ登録したい
+    wishingdone = request.GET.get('wishingdone', False)

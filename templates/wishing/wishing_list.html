@@ -8,20 +8,31 @@
          <table id= "wishing_list" width="100%" class="table table-striped table-bordered table-hover">
              <thead>
                <tr>
+                 <th class="text-center">達成状況</th>
                  <th class="text-center">日付</th>
                  <th class="text-center">金額</th>
                  <th class="text-center">メモ</th>
-                 <th class="text-center">削除</th>
+                 <th class="text-center">達成・削除操作</th>
                </tr>
              </thead>
 
              <tbody>
                {% for item in object_list %}
                  <tr class="odd gradeX text-center">
+                   <td class="text-center" width="100">
+                     {% if item.wishingdone == False %}
+                     <input type="checkbox" name="undone" value="0" disabled="disabled" />
+                     <input type="hidden" name="undone" value="0" />
+                     {% elif item.wishingdone == True %}
+                     <input type="checkbox" name="done" value="1" checked="checked" disabled="disabled" />
+                     <input type="hidden" name="done" value="1" />
+                     {% endif %}
+                   </td>
                    <td class="text-center" width="100">{{ item.wishingdate}}</td>
                    <td class="text-center" width="140">{{ item.wishingmoney }}</td>
                    <td class="text-center" width="140">{{ item.wishingmemo }}</td>
                    <td class="text-center" width="140">
+                     <a class="btn btn-primary" href="{% url 'wishing:wishing_done' item.pk %}">達成ページ</a>
                      <a class="btn btn-danger" href="{% url 'wishing:wishing_delete' item.pk %}">削除ページ</a>
                    </td>
                  </tr>
