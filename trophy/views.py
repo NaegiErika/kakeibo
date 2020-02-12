@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Trophy
-from django.urls import reverse_lazy
 
 class TrophyListView(ListView):
    model = Trophy

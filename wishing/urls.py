@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'wishing'
@@ -8,5 +8,5 @@ urlpatterns = [
     path('wishing_create_done/', views.wishing_create_done, name='wishing_create_done'),
     path('wishing_delete/<int:pk>/', views.WishingDeleteView.as_view(), name='wishing_delete'),
     path('wishing_delete_done/', views.wishing_delete_done, name='wishing_delete_done'),
-    path('wishing_done/<int:pk>/', views.wishingdone, name='wishing_done'),
+    path('wishing_done/<int:pk>/', views.wishing_done, name='wishing_done'),
     ]
