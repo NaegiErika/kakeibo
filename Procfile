@@ -1,1 +1,1 @@
-web: gunicorn <kakeibo>.wsgi --log-file -
+web: gunicorn kakeibo.wsgi --log-file -
