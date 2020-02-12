@@ -25,15 +25,8 @@ SECRET_KEY = 'n%)pj64+poz)z%v3zha9k8ma)0uhk!_a9k9gda7for%d)%30+$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    ...
-]
 
 # Application definition
 
@@ -59,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'kakeibo.urls'
@@ -89,6 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'CONN_MAX_AGE': 500,
     }
 }
 
