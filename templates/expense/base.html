@@ -68,11 +68,13 @@
   type: 'line',
     data: {
       labels:[
+        //時間のx軸設定
         {% for item in expense_x_label %}
              '{{item}}',
         {% endfor %}],
 
       datasets: [
+        //カテゴリの名前をラベルにつく、線の色を設定する
       {% for category_name in expensecategory_list %}
        {
         label: "{{category_name}}",
@@ -81,13 +83,13 @@
                {% if category == category_name %}
                   borderColor : "rgba({{color}})",
                {% endif %}
-           {% endfor %}
+        {% endfor %}
 
-           {% for category, color in background_color %}
+        {% for category, color in background_color %}
                {% if category == category_name %}
                   backgroundColor : "rgba({{color}})",
                {% endif %}
-           {% endfor %}
+        {% endfor %}
 
         data: [
         {% for time_label in expense_x_label %}

@@ -14,18 +14,18 @@
          </thead>
 
          <tbody>
-           {% for item in object_list %}
+           {% for pk, trophydone, trophycontent in trophyalldata %}
              <tr class="odd gradeX text-center">
                <td class="text-center" width="10">
-                 {% if item.trophydone == False %}
+                 {% if trophydone == False %}
                  <input type="checkbox" name="undone" value="0" disabled="disabled" />
                  <input type="hidden" name="undone" value="0" />
-                 {% elif item.trophydone == True %}
+                 {% elif trophydone == True %}
                  <input type="checkbox" name="done" value="1" checked="checked" disabled="disabled" />
                  <input type="hidden" name="done" value="1" />
                  {% endif %}
                </td>
-               <td class="text-center" width="140">{{ item.trophycontent }}</td>
+               <td class="text-center" width="140">{{ trophycontent }}</td>
              </tr>
             {% endfor %}
          </tbody>
